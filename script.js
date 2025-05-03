@@ -52,7 +52,6 @@ function getSelectOption(value) {
 function setCoupon($product, cartProduct) {
     const $productCouponsSelect = $product.querySelector(".product-coupon-container select.product-coupons");
     const $productCouponLabel = $product.querySelector(".product-coupon-container label");
-
     if (cartProduct.activeCoupon) {
         $productCouponsSelect.value = cartProduct.activeCoupon;
         show($productCouponLabel);
@@ -142,6 +141,7 @@ cart.forEach((item, index) => {
         hide($quantityControls);
         show($addToCart);
         item.removeItem();
+        setCoupon($product, item);
 
         $quantity.innerHTML = item.quantity;
         $productPrice.innerHTML = item.formattedPrice;

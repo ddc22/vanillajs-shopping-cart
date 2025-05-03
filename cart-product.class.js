@@ -43,7 +43,7 @@ export class CartProduct {
     }
 
     get activeCoupon() {
-        return this.#activeCoupon ?? "N/A";
+        return this.#activeCoupon;
     }
 
     incrementQuantity() {
@@ -65,20 +65,31 @@ export class CartProduct {
         return this.#quantity;
     }
 
+    /**
+     * There can be only one active coupon at a time
+     * @returns {number} savings
+     */
     calculateSavings() {
-        this.#savings = this.inventoryProduct.coupons.reduce((total, coupon) => {
-            console.log({ total, coupon });
-            if (coupon === 'B2GO') {
-                this.#activeCoupon = coupon;
-                return total + (this.inventoryProduct.price * Math.floor(this.quantity / 2));
+        for (let coupon of this.inventoryProduct.coupons) {
+            switch (coupon) {
+                case 'B2GO': {
+                    if (this.#quantity > 1) {
+                        this.#activeCoupon = coupon;
+                        this.#savings = this.inventoryProduct.price * Math.floor(this.quantity / 2);
+                        return this.#savings;
+                    }
+                    break;
+                }
             }
-            return total;
-        }, 0);
+        }
+        /** If no coupons */
+        this.#activeCoupon = null;
+        this.#savings = 0;
         return this.#savings;
     }
 
     removeItem() {
         this.#quantity = 0;
-        this.#savings = 0;
+        this.calculateSavings();
     }
 }
