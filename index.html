@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://raw.githubusercontent.com/sindresorhus/modern-normalize/refs/heads/main/modern-normalize.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <title>Shopping Cart</title>
 </head>
 <body>
     <header>
-        <h1>RAC Assignment</h1>
+        <h1>RAC ASSIGNMENT</h1>
     </header>
     
     <main class="container">
@@ -37,7 +41,7 @@
                                     <span class="quantity">1</span>
                                     <button class="increase-quantity">+</button>
                                 </div>
-                                <button class="remove-item">🗑️</button>
+                                <button class="remove-item"><img src="images/bin.svg" /></button>
                             </div>
                         </div>
                     </div>
@@ -67,7 +71,7 @@
                                     <span class="quantity">1</span>
                                     <button class="increase-quantity">+</button>
                                 </div>
-                                <button class="remove-item">🗑️</button>
+                                <button class="remove-item"><img src="images/bin.svg" /></button>
                             </div>
                         </div>
                     </div>
@@ -97,7 +101,7 @@
                                     <span class="quantity">1</span>
                                     <button class="increase-quantity">+</button>
                                 </div>
-                                <button class="remove-item">🗑️</button>
+                                <button class="remove-item"><img src="images/bin.svg" /></button>
                             </div>
                         </div>
                     </div>
@@ -113,7 +117,7 @@
                         <div class="label">Subtotal</div>
                         <div id="subtotal">$0.00</div>
                     </div>
-                    <div class="price-item">
+                    <div class="price-item savings hidden">
                         <div class="label">Savings</div>
                         <div id="savings">$0.00</div>
                     </div>
@@ -122,9 +126,9 @@
                         <div id="total">$0.00</div>
                     </div>
                 </div>
-                <button id="checkout-button" class="checkout-button">Checkout</button>
+                <button id="checkout-button" class="checkout-button" disabled>Checkout</button>
                 <p class="payment-methods">Pay with PayPal or Credit Card</p>
-                <div class="promo-code-section">
+                <div class="promo-code-section hidden">
                     <div>
                         <div><label for="promo-code">Promo code</label></div>
                     </div>
@@ -137,6 +141,6 @@
         </aside>
     </main>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>

@@ -1,3 +1,8 @@
+import { CartProduct } from "./cart-product.class.js";
+const currency = {
+    style: 'currency',
+    currency: 'USD'
+}
 const inventory = [{
     name: "Oranges",
     price: 1.25,
@@ -19,13 +24,7 @@ const inventory = [{
     coupons: ['B2GO']
 }]
 
-var cart = inventory.map(item => {
-    return {
-        name: item.name,
-        price: item.price,
-        quantity: 0
-    }
-})
+var cart = inventory.map(item => new CartProduct(item))
 
 
 const hide = (element) => {
@@ -35,82 +34,98 @@ const show = (element) => {
     element.classList.remove("hidden");
 }
 
-const setPrice=(element, price) => {
-    element.innerHTML = price.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD'
-    });
+const enable = (element) => {
+    element.removeAttribute("disabled");
 }
+const disable = (element) => {
+    element.setAttribute("disabled", "true");
+}
+
 
 function updateCartSummary({ cart }) {
-    const cartSummary = document.querySelector(".cart-summary");
-    const subtotal = cartSummary.querySelector("#subtotal");
+    const $cartSummary = document.querySelector(".cart-summary");
+    const $subtotal = $cartSummary.querySelector("#subtotal");
+    const $savings = $cartSummary.querySelector("#savings");
+    const $savingsRow = $cartSummary.querySelector(".savings.price-item");
+    const $total = $cartSummary.querySelector("#total");
+    const $promoCodeSection = $cartSummary.querySelector(".promo-code-section");
+    const checkoutButton = $cartSummary.querySelector(".checkout-button");
 
-    const totalPrice = cart.reduce((total, item) => {
-        return total + (item.price * item.quantity);
+    const subtotal = cart.reduce((total, item) => {
+        return total + item.totalPrice;
     }, 0);
+    const savings = cart.reduce((total, item) => {
+        return total + item.savings;
+    }, 0);
+    const total = subtotal - savings;
 
-    subtotal.innerHTML = totalPrice.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD'
-    });
+    $subtotal.innerHTML = subtotal.toLocaleString('en-US', currency);
+    if (savings > 0) {
+        show($savingsRow);
+        $savings.innerHTML = savings.toLocaleString('en-US', currency);
+    } else {
+        hide($savingsRow);
+    }
+    $total.innerHTML = total.toLocaleString('en-US', currency);
+    if (total) {
+        show($promoCodeSection);
+        enable(checkoutButton);
+    } else {
+        hide($promoCodeSection);
+        disable(checkoutButton);
+    }
 }
 
+
 cart.forEach((item, index) => {
-    const inventoryItem = inventory[index];
-    const product = document.querySelector(`.product:nth-child(${index + 1})`);
-    const productName = product.querySelector(".product-name");
-    const productPrice = product.querySelector(".product-price");
-    const addToCart = product.querySelector(".add-to-cart");
-    const quantityControls = product.querySelector(".quantity-controls");
-    const quantity = product.querySelector(".quantity");
+    const $product = document.querySelector(`.product:nth-child(${index + 1})`);
+    const $productName = $product.querySelector(".product-name");
+    const $productPrice = $product.querySelector(".product-price");
+    const $addToCart = $product.querySelector(".add-to-cart");
+    const $quantityControls = $product.querySelector(".quantity-controls");
+    const $quantity = $product.querySelector(".quantity");
 
-    addToCart.addEventListener("click", () => {
-        show(quantityControls);
-        hide(addToCart);
-        item.quantity = 1;
-        quantity.innerHTML = 1;
+    $addToCart.addEventListener("click", () => {
+        show($quantityControls);
+        hide($addToCart);
+        $quantity.innerHTML = item.incrementQuantity();
+        $productPrice.innerHTML = item.formattedPrice;
         updateCartSummary({ cart });
     });
 
-    product.querySelector(".decrease-quantity").addEventListener("click", () =>{
-        const currentQuantity = item.quantity;
-        if(currentQuantity < 2 ){
-            alert("Minimum quantity is 1");
-            return;
+    $product.querySelector(".decrease-quantity").addEventListener("click", () => {
+        try {
+            $quantity.innerHTML = item.decrementQuantity()
+            $productPrice.innerHTML = item.formattedPrice;
+            updateCartSummary({ cart });
+        } catch (error) {
+            alert(error.message);
         }
-        item.quantity = currentQuantity - 1;
-        quantity.innerHTML = currentQuantity - 1;
-        setPrice(productPrice, item.price * ( item.quantity));
-        updateCartSummary({ cart });
     });
 
-    product.querySelector(".increase-quantity").addEventListener("click", () =>{
-        const currentQuantity = item.quantity;
-        if(currentQuantity >= inventoryItem.stock){
-            alert("Maxim quantity available is " + inventoryItem.stock);
-            return;
-        }        
-        item.quantity = currentQuantity + 1;
-        quantity.innerHTML = currentQuantity + 1;
-        setPrice(productPrice, item.price * ( item.quantity));
-        updateCartSummary({ cart });
+    $product.querySelector(".increase-quantity").addEventListener("click", () => {
+        try {
+            $quantity.innerHTML = item.incrementQuantity()
+            $productPrice.innerHTML = item.formattedPrice;
+            updateCartSummary({ cart });
+        } catch (error) {
+            alert(error.message);
+        }
     });
 
-    product.querySelector(".remove-item").addEventListener("click", () => {
-        hide(quantityControls);
-        show(addToCart);
-        item.quantity = 1;
-        quantity.innerHTML = 0;
-        setPrice(productPrice, item.price);
+    $product.querySelector(".remove-item").addEventListener("click", () => {
+        hide($quantityControls);
+        show($addToCart);
+        item.removeItem();
+
+        $quantity.innerHTML = item.quantity;
+        $productPrice.innerHTML = item.formattedPrice;
         updateCartSummary({ cart });
     });
 
 
-    productName.innerHTML = item.name;
-    productPrice.innerHTML = item.price.toLocaleString('en-US', {
-        style: 'currency',
-        currency: 'USD'
-    });
+    $productName.innerHTML = item.name;
+    $productPrice.innerHTML = item.formattedPrice;
+    $quantity.innerHTML = item.quantity;
 });
 
