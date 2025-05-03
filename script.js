@@ -41,6 +41,28 @@ const disable = (element) => {
     element.setAttribute("disabled", "true");
 }
 
+function getSelectOption(value) {
+    const newOption = document.createElement('option');
+    newOption.value = value;
+    newOption.text = value;
+    newOption.setAttribute("disabled", "true");
+    return newOption;
+}
+
+function setCoupon($product, cartProduct) {
+    const $productCouponsSelect = $product.querySelector(".product-coupon-container select.product-coupons");
+    const $productCouponLabel = $product.querySelector(".product-coupon-container label");
+
+    if (cartProduct.activeCoupon) {
+        $productCouponsSelect.value = cartProduct.activeCoupon;
+        show($productCouponLabel);
+    } else {
+        $productCouponsSelect.value = 'N/A';
+        hide($productCouponLabel);
+    }
+
+}
+
 
 function updateCartSummary({ cart }) {
     const $cartSummary = document.querySelector(".cart-summary");
@@ -84,6 +106,7 @@ cart.forEach((item, index) => {
     const $addToCart = $product.querySelector(".add-to-cart");
     const $quantityControls = $product.querySelector(".quantity-controls");
     const $quantity = $product.querySelector(".quantity");
+    const $productCouponsSelect = $product.querySelector("select.product-coupons");
 
     $addToCart.addEventListener("click", () => {
         show($quantityControls);
@@ -97,6 +120,7 @@ cart.forEach((item, index) => {
         try {
             $quantity.innerHTML = item.decrementQuantity()
             $productPrice.innerHTML = item.formattedPrice;
+            setCoupon($product, item);
             updateCartSummary({ cart });
         } catch (error) {
             alert(error.message);
@@ -107,6 +131,7 @@ cart.forEach((item, index) => {
         try {
             $quantity.innerHTML = item.incrementQuantity()
             $productPrice.innerHTML = item.formattedPrice;
+            setCoupon($product, item);
             updateCartSummary({ cart });
         } catch (error) {
             alert(error.message);
@@ -120,6 +145,7 @@ cart.forEach((item, index) => {
 
         $quantity.innerHTML = item.quantity;
         $productPrice.innerHTML = item.formattedPrice;
+        setCoupon($product, item);
         updateCartSummary({ cart });
     });
 
@@ -127,5 +153,10 @@ cart.forEach((item, index) => {
     $productName.innerHTML = item.name;
     $productPrice.innerHTML = item.formattedPrice;
     $quantity.innerHTML = item.quantity;
+    /* Coupons are unselectable and are set by default */
+    item.coupons.forEach(coupon => {
+        const select = getSelectOption(coupon)
+        $productCouponsSelect.add(select);
+    });
 });
 

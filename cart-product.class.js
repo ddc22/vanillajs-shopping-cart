@@ -2,6 +2,7 @@ export class CartProduct {
     inventoryProduct
     #quantity = 0;
     #savings = 0;
+    #activeCoupon = null;
 
     /**
      * @param {*} inventoryProduct 
@@ -37,6 +38,14 @@ export class CartProduct {
         return this.inventoryProduct.name;
     }
 
+    get coupons() {
+        return this.inventoryProduct.coupons;
+    }
+
+    get activeCoupon() {
+        return this.#activeCoupon ?? "N/A";
+    }
+
     incrementQuantity() {
         if (this.#quantity >= this.inventoryProduct.stock) {
             throw new Error("Quantity cannot exceed stock");
@@ -60,6 +69,7 @@ export class CartProduct {
         this.#savings = this.inventoryProduct.coupons.reduce((total, coupon) => {
             console.log({ total, coupon });
             if (coupon === 'B2GO') {
+                this.#activeCoupon = coupon;
                 return total + (this.inventoryProduct.price * Math.floor(this.quantity / 2));
             }
             return total;

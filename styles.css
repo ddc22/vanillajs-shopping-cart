@@ -73,7 +73,7 @@ button[disabled] {
 .product-price-container{
     padding-top: 20px;
 }
-.product-coupon-container select.product-coupon {
+.product-coupon-container select.product-coupons {
     margin-top: 20px;
     padding: 10px 5px 10px 0;
     border: none;

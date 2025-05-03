@@ -14,5 +14,5 @@ Serve static html using
 npx http-server
 ```
 
-## Demo Hosted At Vercel
+## Demo: Hosted on Vercel
 Link: https://vanillajs-shopping-cart.vercel.app/
