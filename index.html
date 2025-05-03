@@ -14,7 +14,7 @@
     
     <main class="container">
         <section class="products-section">
-            <article class="product">
+            <article class="product oranges">
                 <div class="product-image-container">
                     <img src="images/orange.png" alt="Apples" class="product-image">
                 </div>
@@ -30,8 +30,8 @@
                     </div>
                     <div class="product-controls">
                         <button class="add-to-cart" data-product="Oranges">Add to cart</button>
-                        <div class="quantity-controls ">
-                            <div class="product-counter hidden">
+                        <div class="quantity-controls hidden">
+                            <div class="product-counter">
                                 <div class="button-group">
                                     <button class="decrease-quantity">-</button>
                                     <span class="quantity">1</span>
@@ -44,7 +44,7 @@
                 </div>
             </article>
 
-            <article class="product">
+            <article class="product apples">
                 <div class="product-image-container">
                     <img src="images/apple.png" alt="Apples" class="product-image">
                 </div>
@@ -60,8 +60,8 @@
                     </div>
                     <div class="product-controls">
                         <button class="add-to-cart" data-product="Oranges">Add to cart</button>
-                        <div class="quantity-controls ">
-                            <div class="product-counter hidden">
+                        <div class="quantity-controls hidden">
+                            <div class="product-counter">
                                 <div class="button-group">
                                     <button class="decrease-quantity">-</button>
                                     <span class="quantity">1</span>
@@ -74,7 +74,7 @@
                 </div>
             </article>
 
-            <article class="product">
+            <article class="product pears">
                 <div class="product-image-container">
                     <img src="images/pear.png" alt="Apples" class="product-image">
                 </div>
@@ -90,8 +90,8 @@
                     </div>
                     <div class="product-controls">
                         <button class="add-to-cart" data-product="Oranges">Add to cart</button>
-                        <div class="quantity-controls ">
-                            <div class="product-counter hidden">
+                        <div class="quantity-controls hidden">
+                            <div class="product-counter">
                                 <div class="button-group">
                                     <button class="decrease-quantity">-</button>
                                     <span class="quantity">1</span>
@@ -108,22 +108,31 @@
         <aside class="cart-section">
             <div class="cart-summary">
                 <h2>Cart Summary</h2>
-                <dl class="price-list">
+                <div class="price-list">
                     <div class="price-item">
-                        <dt>Subtotal</dt>
-                        <dd id="subtotal">$0.00</dd>
+                        <div class="label">Subtotal</div>
+                        <div id="subtotal">$0.00</div>
                     </div>
                     <div class="price-item">
-                        <dt>Savings</dt>
-                        <dd id="savings">$0.00</dd>
+                        <div class="label">Savings</div>
+                        <div id="savings">$0.00</div>
                     </div>
                     <div class="price-item total">
-                        <dt>Total</dt>
-                        <dd id="total">$0.00</dd>
+                        <div class="label">Total</div>
+                        <div id="total">$0.00</div>
                     </div>
-                </dl>
+                </div>
                 <button id="checkout-button" class="checkout-button">Checkout</button>
                 <p class="payment-methods">Pay with PayPal or Credit Card</p>
+                <div class="promo-code-section">
+                    <div>
+                        <div><label for="promo-code">Promo code</label></div>
+                    </div>
+                    <div class="promo-code-control-container">
+                        <div class="input-container"><input type="text" id="promo-code" class="promo-code-input" placeholder="Enter code"></div>
+                        <div class="button-container"> <button id="apply-promo" class="apply-promo-button">Apply</button></div>
+                    </div>
+                </div>
             </div>
         </aside>
     </main>
