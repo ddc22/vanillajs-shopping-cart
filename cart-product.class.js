@@ -65,7 +65,7 @@ export class CartProduct {
 
         this.#quantity++;
         this.#calculateSavings();
-        return this.#quantity;
+        return this.finalQuantity;
     }
 
     decrementQuantity() {
@@ -74,7 +74,7 @@ export class CartProduct {
         }
         this.#quantity--;
         this.#calculateSavings();
-        return this.#quantity;
+        return this.finalQuantity;
     }
 
     /**

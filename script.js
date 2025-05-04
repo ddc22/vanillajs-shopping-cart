@@ -43,7 +43,6 @@ function trySetCoupon($product, cartProduct) {
     const $productCouponsSelect = $product.querySelector(".product-coupon-container select.product-coupons");
     const $productPrice = $product.querySelector(".product-price");
     const $discountedProductPrice = $product.querySelector(".product-price-discounted");
-    const $freeItems = $product.querySelector(".free-items");
 
     if (cartProduct.activeCoupon) {
         $productCouponsSelect.value = cartProduct.activeCoupon;
@@ -54,20 +53,11 @@ function trySetCoupon($product, cartProduct) {
         strikeThrough($productPrice);
         $discountedProductPrice.innerHTML = cartProduct.formattedFinalPrice;
         show($discountedProductPrice);
-        if (cartProduct.freeQuantity > 0) {
-            $freeItems.innerHTML = `+ ${cartProduct.freeQuantity}`
-            show($freeItems);
-        } else {
-            $freeItems.innerHTML = 0;
-            hide($freeItems);
-        }
     } else {
         $productCouponsSelect.value = cartProduct.coupons[0] || "N/A";
         unStrikeThrough($productPrice);
         $discountedProductPrice.innerHTML = Number(0).toLocaleString('en-US', currency);
         hide($discountedProductPrice);
-        $freeItems.innerHTML = 0;
-        hide($freeItems);
     }
 
 }
@@ -93,7 +83,7 @@ function updateCartSummary({ cart }) {
     $subtotal.innerHTML = subtotal.toLocaleString('en-US', currency);
     if (savings > 0) {
         show($savingsRow);
-        $savings.innerHTML = savings.toLocaleString('en-US', currency);
+        $savings.innerHTML = (-1 * savings).toLocaleString('en-US', currency);
     } else {
         hide($savingsRow);
     }

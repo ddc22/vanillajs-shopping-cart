@@ -18,11 +18,18 @@ npx http-server
 Link: https://vanillajs-shopping-cart.vercel.app/
 
 ## Assumptions and Decisions
+
+### General
+- Unit price was added to each image for greater clarity
+- Changed the CTA to checkout instead of apply coupons since checkout is the actual CTA
+- Responsive styles implemented and tested for mobile only
+
+### Coupon Interactions
 - If there are multiple coupons we set the first qualifying coupon to the product and ignore the rest. 
 - Coupon application is recalculated when a product is added or removed from the cart
 - The dropdown shows a list of available coupons that are not manually selectable
-- Unit price was added to each image for greater clarity
-- Responsive styles implemented and tested for mobile only
+- For B2GO coupons when you add 2 to the cart an additional product will be added to the cart
+- When you're at 3 products and you remove 1 products from the cart an additional product will be removed
 
 # Potential Improvements
 - Better dropdown UI
