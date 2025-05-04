@@ -19,7 +19,7 @@ Link: https://vanillajs-shopping-cart.vercel.app/
 
 ## Assumptions and Decisions
 - If there are multiple coupons we set the first qualifying coupon to the product and ignore the rest. 
-- Coupon application is recalculated for each calculated when a product is added or removed from the cart
+- Coupon application is recalculated when a product is added or removed from the cart
 - The dropdown shows a list of available coupons that are not manually selectable
 - Unit price was added to each image for greater clarity
 

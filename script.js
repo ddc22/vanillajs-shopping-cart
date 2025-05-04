@@ -41,14 +41,12 @@ function getSelectOption(value) {
  */
 function trySetCoupon($product, cartProduct) {
     const $productCouponsSelect = $product.querySelector(".product-coupon-container select.product-coupons");
-    const $productCouponLabel = $product.querySelector(".product-coupon-container label");
     const $productPrice = $product.querySelector(".product-price");
     const $discountedProductPrice = $product.querySelector(".product-price-discounted");
     const $freeItems = $product.querySelector(".free-items");
 
     if (cartProduct.activeCoupon) {
         $productCouponsSelect.value = cartProduct.activeCoupon;
-        show($productCouponLabel);
 
         /** 
          * Show savings in product
@@ -64,9 +62,7 @@ function trySetCoupon($product, cartProduct) {
             hide($freeItems);
         }
     } else {
-        $productCouponsSelect.value = 'N/A';
-        hide($productCouponLabel);
-
+        $productCouponsSelect.value = cartProduct.coupons[0] || "N/A";
         unStrikeThrough($productPrice);
         $discountedProductPrice.innerHTML = Number(0).toLocaleString('en-US', currency);
         hide($discountedProductPrice);
@@ -172,9 +168,16 @@ cart.forEach((item, index) => {
     $unitPrice.innerHTML = item.formattedUnitPrice.toLocaleString('en-US', currency);
 
     /* Coupons are unselectable and are set by default */
-    item.coupons.forEach(coupon => {
-        const select = getSelectOption(coupon)
-        $productCouponsSelect.add(select);
-    });
+    if (item.coupons.length === 0) {
+        $productCouponsSelect.innerHTML = `<option value="N/A">N/A</option>`;
+    } else {
+        $productCouponsSelect.innerHTML = ``;
+        item.coupons.forEach(coupon => {
+            const select = getSelectOption(coupon)
+            $productCouponsSelect.add(select);
+        });
+        $productCouponsSelect.value = item.coupons[0];
+    }
+
 });
 
