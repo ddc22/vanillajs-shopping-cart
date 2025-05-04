@@ -92,6 +92,7 @@ button[disabled] {
 
 .product-image-container {
     padding-right: 30px;
+    height: 177px;
 }
 
 .product-image-container img.product-image {
@@ -262,4 +263,39 @@ input::placeholder {
 
 .strikethrough.strikethrough.strikethrough {
     text-decoration: line-through;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    body {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .products-section {
+        padding-right: 0;
+    }
+
+    .cart-section {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .cart-summary .price-item {
+        margin: 5px 0;
+    }
+    .cart-summary button.checkout-button {
+        margin: 10px 0;
+    }
+    .cart-summary{
+        margin-top: 20px;
+    }
+    .cart-summary .price-list{ 
+        min-height: 75px;
+    }
+    
 }
