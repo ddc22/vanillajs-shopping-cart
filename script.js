@@ -1,8 +1,7 @@
 import { CartProduct } from "./cart-product.class.js";
-const currency = {
-    style: 'currency',
-    currency: 'USD'
-}
+import { hide, show, enable, disable, strikeThrough, unStrikeThrough, currency } from "./utils.js";
+
+
 const inventory = [{
     name: "Oranges",
     price: 1.25,
@@ -27,20 +26,6 @@ const inventory = [{
 var cart = inventory.map(item => new CartProduct(item))
 
 
-const hide = (element) => {
-    element.classList.add("hidden");
-}
-const show = (element) => {
-    element.classList.remove("hidden");
-}
-
-const enable = (element) => {
-    element.removeAttribute("disabled");
-}
-const disable = (element) => {
-    element.setAttribute("disabled", "true");
-}
-
 function getSelectOption(value) {
     const newOption = document.createElement('option');
     newOption.value = value;
@@ -49,15 +34,39 @@ function getSelectOption(value) {
     return newOption;
 }
 
-function setCoupon($product, cartProduct) {
+/**
+ * 
+ * @param {HTMLElement} $product 
+ * @param {CartProduct} cartProduct 
+ */
+function trySetCoupon($product, cartProduct) {
     const $productCouponsSelect = $product.querySelector(".product-coupon-container select.product-coupons");
     const $productCouponLabel = $product.querySelector(".product-coupon-container label");
+    const $productPrice = $product.querySelector(".product-price");
+    const $discountedProductPrice = $product.querySelector(".product-price-discounted");
+    const $freeItems = $product.querySelector(".free-items");
+
     if (cartProduct.activeCoupon) {
         $productCouponsSelect.value = cartProduct.activeCoupon;
         show($productCouponLabel);
+
+        /** 
+         * Show savings in product
+         */
+        strikeThrough($productPrice);
+        $discountedProductPrice.innerHTML = cartProduct.formattedFinalPrice;
+        show($discountedProductPrice);
+        $freeItems.innerHTML = `+ ${cartProduct.freeQuantity}`
+        show($freeItems);
     } else {
         $productCouponsSelect.value = 'N/A';
         hide($productCouponLabel);
+
+        unStrikeThrough($productPrice);
+        $discountedProductPrice.innerHTML = Number(0).toLocaleString('en-US', currency);
+        hide($discountedProductPrice);
+        $freeItems.innerHTML = 0;
+        hide($freeItems);
     }
 
 }
@@ -119,7 +128,7 @@ cart.forEach((item, index) => {
         try {
             $quantity.innerHTML = item.decrementQuantity()
             $productPrice.innerHTML = item.formattedPrice;
-            setCoupon($product, item);
+            trySetCoupon($product, item);
             updateCartSummary({ cart });
         } catch (error) {
             alert(error.message);
@@ -130,7 +139,7 @@ cart.forEach((item, index) => {
         try {
             $quantity.innerHTML = item.incrementQuantity()
             $productPrice.innerHTML = item.formattedPrice;
-            setCoupon($product, item);
+            trySetCoupon($product, item);
             updateCartSummary({ cart });
         } catch (error) {
             alert(error.message);
@@ -141,18 +150,18 @@ cart.forEach((item, index) => {
         hide($quantityControls);
         show($addToCart);
         item.removeItem();
-        setCoupon($product, item);
+        trySetCoupon($product, item);
 
-        $quantity.innerHTML = item.quantity;
+        $quantity.innerHTML = item.finalQuantity;
         $productPrice.innerHTML = item.formattedPrice;
-        setCoupon($product, item);
+        trySetCoupon($product, item);
         updateCartSummary({ cart });
     });
 
 
     $productName.innerHTML = item.name;
     $productPrice.innerHTML = item.formattedPrice;
-    $quantity.innerHTML = item.quantity;
+    $quantity.innerHTML = item.finalQuantity;
     /* Coupons are unselectable and are set by default */
     item.coupons.forEach(coupon => {
         const select = getSelectOption(coupon)

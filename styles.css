@@ -70,9 +70,19 @@ button[disabled] {
     padding-top: 0;
 }
 
-.product-price-container{
-    padding-top: 20px;
+.price-container{
+    display: flex;
 }
+
+.price-container div{
+    padding-right: 10px;
+}
+
+.price-container .product-price-discounted{
+    color: green;
+    font-weight: 400;
+}
+
 .product-coupon-container select.product-coupons {
     margin-top: 20px;
     padding: 10px 5px 10px 0;
@@ -125,7 +135,6 @@ img.product-image {
 
 .product-counter{
     display: flex;
-
 }
 
 .product-counter button{
@@ -139,6 +148,10 @@ img.product-image {
     border: 2px solid var(--button-border);   
     padding: 2px 10px;
     font-size: 0.75rem;
+}
+.product-counter .free-items{
+    color: green;
+    font-weight: 400;
 }
 
 
@@ -231,4 +244,8 @@ input::placeholder {
 
 .hidden.hidden.hidden {
     display: none;
+}
+
+.strikethrough.strikethrough.strikethrough {
+    text-decoration: line-through;
 }

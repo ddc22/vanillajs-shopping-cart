@@ -1,6 +1,9 @@
+import { currency } from "./utils.js";
+
 export class CartProduct {
     inventoryProduct
     #quantity = 0;
+    #freeItems = 0;
     #savings = 0;
     #activeCoupon = null;
 
@@ -16,11 +19,15 @@ export class CartProduct {
     }
 
     get totalPrice() {
-        return this.inventoryProduct.price * this.quantity;
+        return this.inventoryProduct.price * this.finalQuantity;
     }
 
-    get quantity() {
-        return this.#quantity;
+    get finalQuantity() {
+        return this.#quantity + this.#freeItems;
+    }
+
+    get freeQuantity() {
+        return this.#freeItems;
     }
 
     get savings() {
@@ -28,10 +35,11 @@ export class CartProduct {
     }
 
     get formattedPrice() {
-        return this.totalPrice.toLocaleString('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        });
+        return this.totalPrice.toLocaleString('en-US', currency);
+    }
+
+    get formattedFinalPrice() {
+        return (this.totalPrice - this.savings).toLocaleString('en-US', currency);
     }
 
     get name() {
@@ -52,7 +60,7 @@ export class CartProduct {
         }
 
         this.#quantity++;
-        this.calculateSavings();
+        this.#calculateSavings();
         return this.#quantity;
     }
 
@@ -61,7 +69,7 @@ export class CartProduct {
             throw new Error("Quantity cannot be less than 1");
         }
         this.#quantity--;
-        this.calculateSavings();
+        this.#calculateSavings();
         return this.#quantity;
     }
 
@@ -69,13 +77,14 @@ export class CartProduct {
      * There can be only one active coupon at a time
      * @returns {number} savings
      */
-    calculateSavings() {
+    #calculateSavings() {
         for (let coupon of this.inventoryProduct.coupons) {
             switch (coupon) {
                 case 'B2GO': {
                     if (this.#quantity > 1) {
                         this.#activeCoupon = coupon;
-                        this.#savings = this.inventoryProduct.price * Math.floor(this.quantity / 2);
+                        this.#freeItems = Math.floor(this.#quantity / 2);
+                        this.#savings = this.inventoryProduct.price * this.#freeItems;
                         return this.#savings;
                     }
                     break;
@@ -85,11 +94,12 @@ export class CartProduct {
         /** If no coupons */
         this.#activeCoupon = null;
         this.#savings = 0;
+        this.#freeItems = 0;
         return this.#savings;
     }
 
     removeItem() {
         this.#quantity = 0;
-        this.calculateSavings();
+        this.#calculateSavings();
     }
 }
