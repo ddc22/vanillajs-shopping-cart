@@ -88,12 +88,12 @@ export class CartProduct {
                 const maxFreeItems = this.#inventoryProduct.stock - this.#quantity;
                 const eligibleFreeItems = Math.floor(this.#quantity / 2);
                 this.#freeItems = Math.min(maxFreeItems, eligibleFreeItems);
-                this.#savings = this.#inventoryProduct.price * this.#freeItems;
+                this.#savings = Math.round(this.#inventoryProduct.price * this.#freeItems * 100) / 100;
                 return this.#savings;
             } else if (coupon === '10OFF' && this.#quantity > 0) {
                 this.#activeCoupon = coupon;
                 this.#freeItems = 0;
-                this.#savings = this.totalPrice * 0.1;
+                this.#savings = Math.round(this.totalPrice * 0.1 * 100) / 100;
                 return this.#savings;
             }
         }

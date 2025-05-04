@@ -23,6 +23,7 @@ Link: https://vanillajs-shopping-cart.vercel.app/
 - Unit price was added to each image for greater clarity
 - Changed the CTA to checkout instead of apply coupons since checkout is the actual CTA
 - Responsive styles implemented and tested for mobile only
+- Checkout coupon and manual coupon apply input/buttons are considered dead/dummy elements
 
 ### Coupon Interactions
 - If there are multiple coupons we set the first qualifying coupon to the product and ignore the rest. 
