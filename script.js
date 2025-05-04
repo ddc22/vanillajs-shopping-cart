@@ -6,7 +6,7 @@ const inventory = [{
     name: "Oranges",
     price: 1.25,
     stock: 5,
-    coupons: []
+    coupons: ['B2GO']
 },
 
 {

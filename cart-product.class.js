@@ -55,7 +55,7 @@ export class CartProduct {
     }
 
     incrementQuantity() {
-        if (this.#quantity >= this.inventoryProduct.stock) {
+        if (this.finalQuantity >= this.inventoryProduct.stock) {
             throw new Error("Quantity cannot exceed stock");
         }
 
@@ -83,7 +83,9 @@ export class CartProduct {
                 case 'B2GO': {
                     if (this.#quantity > 1) {
                         this.#activeCoupon = coupon;
-                        this.#freeItems = Math.floor(this.#quantity / 2);
+                        const maxFreeItems = this.inventoryProduct.stock - this.#quantity;
+                        const eligibleFreeItems = Math.floor(this.#quantity / 2);
+                        this.#freeItems = Math.min(maxFreeItems, eligibleFreeItems);
                         this.#savings = this.inventoryProduct.price * this.#freeItems;
                         return this.#savings;
                     }

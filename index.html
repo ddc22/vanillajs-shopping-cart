@@ -25,9 +25,12 @@
                 <div class="product-details">
                     <div class="product-info">
                         <div class="product-name"><strong>Oranges</strong></div>
-                        <div class="product-price">$0.00</div>
+                        <div class="price-container">
+                            <div class="product-price">$0.00</div>
+                            <div class="product-price-discounted hidden">$0.00</div>
+                        </div>
                         <div class="product-coupon-container">
-                            <label for="product-coupons"  class="hidden">Coupon: </label>
+                            <label for="product-coupons" class="hidden">Coupon: </label>
                             <select class="product-coupons">
                                 <option>N/A</option>
                             </select>
@@ -40,6 +43,7 @@
                                 <div class="button-group">
                                     <button class="decrease-quantity">-</button>
                                     <span class="quantity">1</span>
+                                    <span class="free-items hidden">0</span>
                                     <button class="increase-quantity">+</button>
                                 </div>
                                 <button class="remove-item"><img src="images/bin.svg" /></button>
@@ -56,7 +60,10 @@
                 <div class="product-details">
                     <div class="product-info">
                         <div class="product-name"><strong>Apples</strong></div>
-                        <div class="product-price">$0.00</div>
+                        <div class="price-container">
+                            <div class="product-price">$0.00</div>
+                            <div class="product-price-discounted hidden">$0.00</div>
+                        </div>
                         <div class="product-coupon-container">
                             <label for="product-coupons" class="hidden">Coupon: </label>
                             <select class="product-coupons">
@@ -71,6 +78,7 @@
                                 <div class="button-group">
                                     <button class="decrease-quantity">-</button>
                                     <span class="quantity">1</span>
+                                    <span class="free-items hidden">0</span>
                                     <button class="increase-quantity">+</button>
                                 </div>
                                 <button class="remove-item"><img src="images/bin.svg" /></button>
