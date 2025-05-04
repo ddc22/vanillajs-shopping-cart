@@ -22,6 +22,7 @@ Link: https://vanillajs-shopping-cart.vercel.app/
 - Coupon application is recalculated when a product is added or removed from the cart
 - The dropdown shows a list of available coupons that are not manually selectable
 - Unit price was added to each image for greater clarity
+- Responsive styles implemented and tested for mobile only
 
 # Potential Improvements
 - Better dropdown UI
