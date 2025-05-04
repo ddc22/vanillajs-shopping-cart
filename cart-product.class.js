@@ -1,7 +1,7 @@
 import { currency } from "./utils.js";
 
 export class CartProduct {
-    inventoryProduct
+    #inventoryProduct
     #quantity = 0;
     #freeItems = 0;
     #savings = 0;
@@ -15,11 +15,11 @@ export class CartProduct {
      *  @param {string} inventoryProduct.name
      */
     constructor(inventoryProduct) {
-        this.inventoryProduct = inventoryProduct;
+        this.#inventoryProduct = inventoryProduct;
     }
 
     get totalPrice() {
-        return this.inventoryProduct.price * this.finalQuantity;
+        return this.#inventoryProduct.price * this.finalQuantity;
     }
 
     get finalQuantity() {
@@ -42,12 +42,16 @@ export class CartProduct {
         return (this.totalPrice - this.savings).toLocaleString('en-US', currency);
     }
 
+    get formattedUnitPrice() {
+        return this.#inventoryProduct.price.toLocaleString('en-US', currency);
+    }
+
     get name() {
-        return this.inventoryProduct.name;
+        return this.#inventoryProduct.name;
     }
 
     get coupons() {
-        return this.inventoryProduct.coupons;
+        return this.#inventoryProduct.coupons;
     }
 
     get activeCoupon() {
@@ -55,7 +59,7 @@ export class CartProduct {
     }
 
     incrementQuantity() {
-        if (this.finalQuantity >= this.inventoryProduct.stock) {
+        if (this.finalQuantity >= this.#inventoryProduct.stock) {
             throw new Error("Quantity cannot exceed stock");
         }
 
@@ -78,13 +82,13 @@ export class CartProduct {
      * @returns {number} savings
      */
     #calculateSavings() {
-        for (let coupon of this.inventoryProduct.coupons) {
+        for (let coupon of this.#inventoryProduct.coupons) {
             if (coupon === 'B2GO' && this.#quantity > 1) {
                 this.#activeCoupon = coupon;
-                const maxFreeItems = this.inventoryProduct.stock - this.#quantity;
+                const maxFreeItems = this.#inventoryProduct.stock - this.#quantity;
                 const eligibleFreeItems = Math.floor(this.#quantity / 2);
                 this.#freeItems = Math.min(maxFreeItems, eligibleFreeItems);
-                this.#savings = this.inventoryProduct.price * this.#freeItems;
+                this.#savings = this.#inventoryProduct.price * this.#freeItems;
                 return this.#savings;
             } else if (coupon === '10OFF' && this.#quantity > 0) {
                 this.#activeCoupon = coupon;

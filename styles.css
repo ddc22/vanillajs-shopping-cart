@@ -90,12 +90,26 @@ button[disabled] {
     font-size: 1rem;
 } 
 
-img.product-image {
-    width: 175px;
- }
- 
 .product-image-container {
     padding-right: 30px;
+}
+
+.product-image-container img.product-image {
+    width: 175px;
+ }
+
+ .product-image-container .unit-price{
+    background-color: white;
+    opacity: 0.9;
+    display: block;
+    bottom: 30px;
+    left: 111px;
+    position: relative;
+    z-index: 3;
+    width: 57px;
+    text-align: right;
+    padding: 2px;
+    font-weight: bold;
 }
 
 .product-details{

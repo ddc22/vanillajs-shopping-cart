@@ -116,6 +116,7 @@ cart.forEach((item, index) => {
     const $product = document.querySelector(`.product:nth-child(${index + 1})`);
     const $productName = $product.querySelector(".product-name");
     const $productPrice = $product.querySelector(".product-price");
+    const $unitPrice = $product.querySelector(".unit-price");
     const $addToCart = $product.querySelector(".add-to-cart");
     const $quantityControls = $product.querySelector(".quantity-controls");
     const $quantity = $product.querySelector(".quantity");
@@ -168,6 +169,8 @@ cart.forEach((item, index) => {
     $productName.innerHTML = item.name;
     $productPrice.innerHTML = item.formattedPrice;
     $quantity.innerHTML = item.finalQuantity;
+    $unitPrice.innerHTML = item.formattedUnitPrice.toLocaleString('en-US', currency);
+
     /* Coupons are unselectable and are set by default */
     item.coupons.forEach(coupon => {
         const select = getSelectOption(coupon)
