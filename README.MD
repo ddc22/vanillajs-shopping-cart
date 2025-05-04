@@ -17,6 +17,11 @@ npx http-server
 ## Demo: Hosted on Vercel
 Link: https://vanillajs-shopping-cart.vercel.app/
 
+## Screenshots
+
+![Image](https://github.com/user-attachments/assets/ab50e7d2-bfc6-46e1-a270-57204b3c295e)
+![Image](https://github.com/user-attachments/assets/ac73c1bb-5afd-492f-b5b1-8f29af9aaeba)
+
 ## Assumptions and Decisions
 
 ### General
