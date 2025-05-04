@@ -16,3 +16,11 @@ npx http-server
 
 ## Demo: Hosted on Vercel
 Link: https://vanillajs-shopping-cart.vercel.app/
+
+## Assumptions and Decisions
+- If there are multiple coupons we set the first qualifying coupon to the product
+- The dropdown shows a list of available coupons that are not manually selectable
+
+# Potential Improvements
+- Better dropdown UI
+- Provide a small icon with popover information on each coupon

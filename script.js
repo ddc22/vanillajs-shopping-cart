@@ -6,7 +6,7 @@ const inventory = [{
     name: "Oranges",
     price: 1.25,
     stock: 5,
-    coupons: ['B2GO']
+    coupons: ['B2GO', '10OFF']
 },
 
 {
@@ -56,8 +56,13 @@ function trySetCoupon($product, cartProduct) {
         strikeThrough($productPrice);
         $discountedProductPrice.innerHTML = cartProduct.formattedFinalPrice;
         show($discountedProductPrice);
-        $freeItems.innerHTML = `+ ${cartProduct.freeQuantity}`
-        show($freeItems);
+        if (cartProduct.freeQuantity > 0) {
+            $freeItems.innerHTML = `+ ${cartProduct.freeQuantity}`
+            show($freeItems);
+        } else {
+            $freeItems.innerHTML = 0;
+            hide($freeItems);
+        }
     } else {
         $productCouponsSelect.value = 'N/A';
         hide($productCouponLabel);
@@ -121,6 +126,7 @@ cart.forEach((item, index) => {
         hide($addToCart);
         $quantity.innerHTML = item.incrementQuantity();
         $productPrice.innerHTML = item.formattedPrice;
+        trySetCoupon($product, item);
         updateCartSummary({ cart });
     });
 

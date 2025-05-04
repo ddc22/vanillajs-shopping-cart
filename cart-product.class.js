@@ -79,18 +79,18 @@ export class CartProduct {
      */
     #calculateSavings() {
         for (let coupon of this.inventoryProduct.coupons) {
-            switch (coupon) {
-                case 'B2GO': {
-                    if (this.#quantity > 1) {
-                        this.#activeCoupon = coupon;
-                        const maxFreeItems = this.inventoryProduct.stock - this.#quantity;
-                        const eligibleFreeItems = Math.floor(this.#quantity / 2);
-                        this.#freeItems = Math.min(maxFreeItems, eligibleFreeItems);
-                        this.#savings = this.inventoryProduct.price * this.#freeItems;
-                        return this.#savings;
-                    }
-                    break;
-                }
+            if (coupon === 'B2GO' && this.#quantity > 1) {
+                this.#activeCoupon = coupon;
+                const maxFreeItems = this.inventoryProduct.stock - this.#quantity;
+                const eligibleFreeItems = Math.floor(this.#quantity / 2);
+                this.#freeItems = Math.min(maxFreeItems, eligibleFreeItems);
+                this.#savings = this.inventoryProduct.price * this.#freeItems;
+                return this.#savings;
+            } else if (coupon === '10OFF' && this.#quantity > 0) {
+                this.#activeCoupon = coupon;
+                this.#freeItems = 0;
+                this.#savings = this.totalPrice * 0.1;
+                return this.#savings;
             }
         }
         /** If no coupons */
