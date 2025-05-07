@@ -8,6 +8,135 @@
     <title>Shopping Cart</title>
 </head>
 <body>
+    <header>
+        <h1>RAC Assignment</h1>
+    </header>
+    
+    <main class="container">
+        <section class="products-section">
+            <article class="product oranges">
+                <div class="product-image-container">
+                    <img src="images/orange.png" alt="Apples" class="product-image">
+                </div>
+                <div class="product-details">
+                    <div class="product-info">
+                        <div class="product-name"><strong>Oranges</strong></div>
+                        <div class="product-price">$1.25</div>
+                        <div class="product-coupon-container">
+                            <select class="product-coupon">
+                                <option>N/A</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="product-controls">
+                        <button class="add-to-cart" data-product="Oranges">Add to cart</button>
+                        <div class="quantity-controls hidden">
+                            <div class="product-counter">
+                                <div class="button-group">
+                                    <button class="decrease-quantity">-</button>
+                                    <span class="quantity">1</span>
+                                    <button class="increase-quantity">+</button>
+                                </div>
+                                <button class="remove-item">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="product apples">
+                <div class="product-image-container">
+                    <img src="images/apple.png" alt="Apples" class="product-image">
+                </div>
+                <div class="product-details">
+                    <div class="product-info">
+                        <div class="product-name"><strong>Apples</strong></div>
+                        <div class="product-price">$1.25</div>
+                        <div class="product-coupon-container">
+                            <select class="product-coupon">
+                                <option>N/A</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="product-controls">
+                        <button class="add-to-cart" data-product="Oranges">Add to cart</button>
+                        <div class="quantity-controls hidden">
+                            <div class="product-counter">
+                                <div class="button-group">
+                                    <button class="decrease-quantity">-</button>
+                                    <span class="quantity">1</span>
+                                    <button class="increase-quantity">+</button>
+                                </div>
+                                <button class="remove-item">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="product pears">
+                <div class="product-image-container">
+                    <img src="images/pear.png" alt="Apples" class="product-image">
+                </div>
+                <div class="product-details">
+                    <div class="product-info">
+                        <div class="product-name"><strong>Pears</strong></div>
+                        <div class="product-price">$1.25</div>
+                        <div class="product-coupon-container">
+                            <select class="product-coupon">
+                                <option>N/A</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="product-controls">
+                        <button class="add-to-cart" data-product="Oranges">Add to cart</button>
+                        <div class="quantity-controls hidden">
+                            <div class="product-counter">
+                                <div class="button-group">
+                                    <button class="decrease-quantity">-</button>
+                                    <span class="quantity">1</span>
+                                    <button class="increase-quantity">+</button>
+                                </div>
+                                <button class="remove-item">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+        
+        <aside class="cart-section">
+            <div class="cart-summary">
+                <h2>Cart Summary</h2>
+                <div class="price-list">
+                    <div class="price-item">
+                        <div class="label">Subtotal</div>
+                        <div id="subtotal">$0.00</div>
+                    </div>
+                    <div class="price-item">
+                        <div class="label">Savings</div>
+                        <div id="savings">$0.00</div>
+                    </div>
+                    <div class="price-item total">
+                        <div class="label">Total</div>
+                        <div id="total">$0.00</div>
+                    </div>
+                </div>
+                <button id="checkout-button" class="checkout-button">Checkout</button>
+                <p class="payment-methods">Pay with PayPal or Credit Card</p>
+                <div class="promo-code-section">
+                    <div>
+                        <div><label for="promo-code">Promo code</label></div>
+                    </div>
+                    <div class="promo-code-control-container">
+                        <div class="input-container"><input type="text" id="promo-code" class="promo-code-input" placeholder="Enter code"></div>
+                        <div class="button-container"> <button id="apply-promo" class="apply-promo-button">Apply</button></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
     <script src="script.js"></script>
 </body>
 </html>
